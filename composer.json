@@ -16,8 +16,6 @@
         "phpunit/phpunit": "~4.8"
     },
     "bin": [
-    	"bin/circleci-install-phalcon.sh",
-    	"bin/shippable-install-phalcon.sh",
-    	"bin/travisci-install-phalcon.sh"
+    	"bin/install-phalcon.sh"
 	]
 }

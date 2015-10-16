@@ -6,8 +6,7 @@
 [![Shippable](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg)](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg)
 [![Codeship](https://codeship.com/projects/d6305600-55cf-0133-0a31-0ebfbd542ed0/status?branch=master)](https://codeship.com/projects/109153)
 
-Provides inline script execution support for installing the [Phalcon](https://phalconphp.com) module as an extension in the PHP runtime
-of various hosted CI services including TravisCI, CircleCI, Shippable and Codeship.
+Composer integration for PHP applications to install the [Phalcon](https://phalconphp.com) framework as an extension in the PHP runtime for various hosted CI services including TravisCI, CircleCI, Shippable and Codeship.
 
 
 ### Features
