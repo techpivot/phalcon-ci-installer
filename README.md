@@ -1,11 +1,10 @@
 # Phalcon CI Installer
 
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+[![TravisCI](https://magnum.travis-ci.com/techpivot/phalcon-ci-installer.svg?token=3ojQM7rGxH51knzEpmdK)](https://magnum.travis-ci.com/techpivot/phalcon-ci-installer)
 [![CircleCI](https://circleci.com/gh/techpivot/phalcon-ci-installer.svg?style=shield&circle-token=e0f3c984c936d88ad20ca9db4112f032d27930af)](https://circleci.com/gh/techpivot/phalcon-ci-installer.svg?style=shield&circle-token=e0f3c984c936d88ad20ca9db4112f032d27930af)
-[![TravisCI](https://magnum.travis-ci.com/techpivot/phalcon-ci-installer.svg?token=3ojQM7rGxH51knzEpmdK&branch=master)](https://magnum.travis-ci.com/techpivot/phalcon-ci-installer)
 [![Shippable](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg)](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg)
-[![Codeship](https://codeship.com/projects/e65de590-544d-0133-95e2-5675ed16b46f/status?branch=master)](https://codeship.com/projects/108627)
-
+[![Codeship](https://codeship.com/projects/d6305600-55cf-0133-0a31-0ebfbd542ed0/status?branch=master)](https://codeship.com/projects/109153)
 
 Provides inline script execution support for installing the [Phalcon](https://phalconphp.com) module as an extension in the PHP runtime
 of various hosted CI services including TravisCI, CircleCI, Shippable and Codeship.
