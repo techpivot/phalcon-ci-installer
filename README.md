@@ -9,10 +9,12 @@
 Provides inline script execution support for installing the [Phalcon](https://phalconphp.com) module as an extension in the PHP runtime
 of various hosted CI services including TravisCI, CircleCI, Shippable and Codeship.
 
+
 ### Features
 * Phalcon extension loaded in PHP runtime
 * Native cache support to prevent rebuilding Phalcon from source
 * Auto-detection of latest tagged Phalcon version
+
 
 ### Installation
 
