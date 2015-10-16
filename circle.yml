@@ -1,0 +1,15 @@
+machine:
+  php:
+    version: 5.6.5
+
+dependencies:
+  cache_directories:
+    - vendor
+    - ./../cphalcon
+
+  post:
+    - bin/install-phalcon.sh
+
+test:
+  override:
+    - vendor/bin/phpunit
