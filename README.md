@@ -27,6 +27,7 @@ Composer integration for PHP applications to install the [Phalcon](https://phalc
 1. Update your CI script to execute the **vendor/bin/install-phalcon.sh** installer in the 
 relevant section. See the examples below for various CI providers.
 
+
 ## CircleCI
 
 **`circle.yml`**
@@ -74,12 +75,13 @@ before_install:
 
 script:
   - vendor/bin/phpunit
-  
+
 notifications:
   email: false
 ```
 **TravisCI Notes**
 * Caching work great with TravisCI. Multiple PHP versions can be specified and each one will be cached independently.
+
 
 ## Shippable
 
@@ -109,6 +111,7 @@ parameter; however, this does not update after new builds are complete. As a res
 the cache is to commit with the **[reset minion]** flag. If Shippable is your primary CI, my recommendation
 would be to use a single PHP instance, with `cache: true` and then whenever Phalcon becomes out-of-date, ensure
 that the next commit utilizes the **[reset minion]** flag.
+
 
 ## Codeship
 Sample **Setup Commands**
