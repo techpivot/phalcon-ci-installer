@@ -62,6 +62,8 @@ if [ -d "${PHALCON_DIR}" ]; then
     # Depending on the CI container, let's proceed accordingly
     if [ "${CIRCLECI}" == "true" ]; then
         sudo rm --recursive --force ${PHALCON_DIR}
+    elif [ "${TRAVIS}" == "true" ]; then
+        rm --recursive --force ${PHALCON_DIR}
     else
         PHALCON_DIR=${TMP_PHALCON_DIR}
     fi
