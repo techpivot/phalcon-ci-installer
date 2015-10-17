@@ -51,21 +51,30 @@ fi
 
 cd ${HOME}
 if [ -d "${PHALCON_DIR}" ]; then
-	# Existing repository exists. Clone into a temporary location instead of removing 
-	# the existing phalcon cached repository to ensure that we can properly override
-	# the cache. Also, Shippable has issues with `rm --recursive`.
-	TMP_PHALCON_CLONE_DIR=$(mktemp -d)
-	git clone --depth=1 https://github.com/phalcon/cphalcon.git ${TMP_PHALCON_CLONE_DIR}
-	
-	# Shippable cache is not centralized. Permission errors will result from the AUFS docker lock
-	if [ "${SHIPPABLE}" != "true" ]; then
-		cp ${TMP_PHALCON_CLONE_DIR}/. ${PHALCON_DIR} -R
-	else
-		PHALCON_DIR=${TMP_PHALCON_CLONE_DIR}
-	fi
+    # Existing repository exists. Depending on the CI let's handle appropriately.
+    TMP_PHALCON_DIR=$(mktemp -d)
+    
+    # Copy any cached Phalcon binaries
+    if [ -d "${PHALCON_DIR}/build/64bits/module" ]; then
+       cp ${PHALCON_DIR}/build/64bits/modules/*.so ${TMP_PHALCON_DIR}
+    fi
+    
+    # Depending on the CI container, let's proceed accordingly
+    if [ "${CIRCLECI}" == "true" ]; then
+        sudo rm --recursive --force ${PHALCON_DIR}
+    else
+        PHALCON_DIR=${TMP_PHALCON_DIR}
+    fi
+    
+    # Clone the updated Phalcon source directly into the cached phalcon directory
+    git clone --depth=1 https://github.com/phalcon/cphalcon.git ${PHALCON_DIR}
+
+    # Re-add cached binaries. Note that cached files may not exist so ensure that we dont force
+    # an early exit from a bad exit code. Redirect stderr and ensure exit code doesnt halt CI.
+    cp ${TMP_PHALCON_DIR}/*.so ${PHALCON_DIR}/build/64bits/modules 2>/dev/null || :
 else
-	# Clone the updated Phalcon source directly into the cached phalcon directory
-	git clone --depth=1 https://github.com/phalcon/cphalcon.git ${PHALCON_DIR}
+    # Clone the updated Phalcon source directly into the cached phalcon directory
+    git clone --depth=1 https://github.com/phalcon/cphalcon.git ${PHALCON_DIR}
 fi
 
 
