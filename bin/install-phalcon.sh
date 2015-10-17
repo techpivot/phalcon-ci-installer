@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-
 START_TIME=$(date +%s.%3N)
-PHALCON_DIR=${HOME}/cphalcon
-PHP_VER=$(phpenv version-name)
-EXT_DIR=$(find ${HOME}/.phpenv/versions/${PHP_VER}/lib/php/extensions -type d -name 'no-debug*')  
-CACHED_MODULE=${PHALCON_DIR}/build/64bits/modules/phalcon-${PHP_VER}.so
 
 
 # Ensure that this is being run inside a CI container
@@ -16,6 +11,11 @@ if [ "${CI}" != "true" ]; then
     exit 1
 fi
 
+
+PHALCON_DIR=${HOME}/cphalcon
+PHP_VER=$(phpenv version-name)
+EXT_DIR=$(find ${HOME}/.phpenv/versions/${PHP_VER}/lib/php/extensions -type d -name 'no-debug*')  
+CACHED_MODULE=${PHALCON_DIR}/build/64bits/modules/phalcon-${PHP_VER}.so
 
 # Prior to building, attempt to enable phalcon from a cached dependency 
 # which may have been set via the CI environment YML declaration. This is
