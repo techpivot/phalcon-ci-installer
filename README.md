@@ -1,10 +1,15 @@
 # Phalcon CI Installer
 
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
-[![TravisCI](https://magnum.travis-ci.com/techpivot/phalcon-ci-installer.svg?token=3ojQM7rGxH51knzEpmdK&branch=master)](https://magnum.travis-ci.com/techpivot/phalcon-ci-installer)
-[![CircleCI](https://circleci.com/gh/techpivot/phalcon-ci-installer.svg?style=shield&circle-token=e0f3c984c936d88ad20ca9db4112f032d27930af)](https://circleci.com/gh/techpivot/phalcon-ci-installer.svg?style=shield&circle-token=e0f3c984c936d88ad20ca9db4112f032d27930af)
-[![Shippable](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg)](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg)
+
+[![Travis CI](https://magnum.travis-ci.com/techpivot/phalcon-ci-installer.svg?token=3ojQM7rGxH51knzEpmdK&branch=master&style=flat-square)](https://magnum.travis-ci.com/techpivot/phalcon-ci-installer)
+[![CircleCI](https://img.shields.io/circleci/token/e0f3c984c936d88ad20ca9db4112f032d27930af/project/techpivot/phalcon-ci-installer/master.svg?style=flat-square)](https://circleci.com)
+[![Shippable](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg?style=flat-square)](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg)
 [![Codeship](https://codeship.com/projects/d6305600-55cf-0133-0a31-0ebfbd542ed0/status?branch=master)](https://codeship.com/projects/109153)
+
+[![Latest Version](https://img.shields.io/packagist/v/techpivot/phalcon-ci-installer.svg?style=flat-square)](https://packagist.org/packages/techpivot/phalcon-ci-installer)
+[![Total Downloads](https://img.shields.io/packagist/dt/techpivot/phalcon-ci-installer.svg?style=flat-square)](https://packagist.org/packages/techpivot/phalcon-ci-installer)
+[![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/techpivot/phalcon-ci-installer/LICENSE)
+
 
 Composer integration for PHP applications to install the [Phalcon](https://phalconphp.com) framework as an extension in the PHP runtime for various hosted CI services including TravisCI, CircleCI, Shippable and Codeship.
 
