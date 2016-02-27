@@ -14,7 +14,8 @@ fi
 
 PHALCON_DIR=${HOME}/cphalcon
 PHP_VER=$(phpenv version-name)
-EXT_DIR=$(find ${HOME}/.phpenv/versions/${PHP_VER}/lib/php/extensions -type d -name 'no-debug*')  
+PHP_ENV_DIR=$(dirname $(dirname $(which phpenv)))/versions/${PHP_VER}
+PHP_EXT_DIR=${PHP_ENV_DIR}/lib/php/extensions  
 CACHED_MODULE=${PHALCON_DIR}/build/64bits/modules/phalcon-${PHP_VER}.so
 
 # Prior to building, attempt to enable phalcon from a cached dependency 
@@ -30,8 +31,9 @@ if [ -d "${PHALCON_DIR}" ]; then
     
     if [ "${LOCAL}" == "${REMOTE}" ] && [ -f ${CACHED_MODULE} ]; then
         echo "Phalcon extension up-to-date. Enabling cached version ..."
-        cp ${CACHED_MODULE} ${EXT_DIR}/phalcon.so
-        echo "extension=phalcon.so" > ${HOME}/.phpenv/versions/${PHP_VER}/etc/conf.d/phalcon.ini
+        cp ${CACHED_MODULE} ${PHP_EXT_DIR}/phalcon.so
+        
+        echo "extension=phalcon.so" > ${PHP_ENV_DIR}/etc/conf.d/phalcon.ini
         ELAPSED_TIME=$(python -c "print round(($(date +%s.%3N) - ${START_TIME}), 3)")
         echo "Phalcon extension enabled in ${ELAPSED_TIME} sec"
         exit
@@ -88,9 +90,9 @@ cd ${PHALCON_DIR}/build
 
 # Codeship has issues with the phpenv not being setup correctly even when specified. Ensure that
 # the correct version adds the required binaries to the PATH prior to the global phpenv.
-PATH=${HOME}/.phpenv/versions/${PHP_VER}/bin:${PATH}
+PATH=${PHP_ENV_DIR}/bin:${PATH}
 ./install
-echo "extension=phalcon.so" > ${HOME}/.phpenv/versions/${PHP_VER}/etc/conf.d/phalcon.ini
+echo "extension=phalcon.so" > ${PHP_ENV_DIR}/etc/conf.d/phalcon.ini
 
 
 # Cache the executable specific to the PHP version which will allow for multiple CI environments
