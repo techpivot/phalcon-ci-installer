@@ -111,7 +111,7 @@ echo "extension=phalcon.so" > ${PHP_ENV_DIR}/etc/conf.d/phalcon.ini
 
 # Cache the executable specific to the PHP version which will allow for multiple CI environments
 # to properly reuse the cache
-mv ${PHALCON_DIR}/build/64bits/modules/phalcon.so ${PHALCON_CACHED_MODULE}.so
+mv ${PHALCON_DIR}/build/64bits/modules/phalcon.so ${PHALCON_CACHED_MODULE}
 echo "Cached phalcon extension [ phalcon-${PHP_VER}.so ] for future builds."
 
 
