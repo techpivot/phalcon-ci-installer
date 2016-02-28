@@ -31,8 +31,7 @@ if [ -d "${PHALCON_DIR}" ]; then
     
     if [ "${LOCAL}" == "${REMOTE}" ] && [ -f ${CACHED_MODULE} ]; then
         echo "Phalcon extension up-to-date. Enabling cached version ..."
-        cp ${CACHED_MODULE} ${PHP_EXT_DIR}/phalcon.so
-        
+        cp --verbose ${CACHED_MODULE} ${PHP_EXT_DIR}/phalcon.so
         echo "extension=phalcon.so" > ${PHP_ENV_DIR}/etc/conf.d/phalcon.ini
         ELAPSED_TIME=$(python -c "print round(($(date +%s.%3N) - ${START_TIME}), 3)")
         echo "Phalcon extension enabled in ${ELAPSED_TIME} sec"
@@ -57,7 +56,7 @@ if [ -d "${PHALCON_DIR}" ]; then
     TMP_PHALCON_DIR=$(mktemp -d)
     
     # Copy any cached Phalcon binaries
-    if [ -d "${PHALCON_DIR}/build/64bits/module" ]; then
+    if [ -d "${PHALCON_DIR}/build/64bits/modules" ]; then
        cp ${PHALCON_DIR}/build/64bits/modules/*.so ${TMP_PHALCON_DIR}
     fi
     
