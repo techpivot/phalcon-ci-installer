@@ -17,6 +17,21 @@ Composer integration for PHP applications to install the [Phalcon](https://phalc
 * Phalcon extension loaded in PHP runtime
 * Native cache support to prevent rebuilding Phalcon from source
 * Auto-detection of latest tagged Phalcon version
+* Install specific Phalcon versions, tags and releases (Since 1.0.2)
+
+
+### Usage
+
+```bash
+# Install latest version from default branch
+./bin/install-phalcon.sh
+
+# Install latest revision from branch "2.1.x"
+./bin/install-phalcon.sh 2.1.x
+
+# Install specific release tag "phalcon-v2.0.9"
+./bin/install-phalcon.sh phalcon-v2.0.9
+```
 
 
 ### Installation
