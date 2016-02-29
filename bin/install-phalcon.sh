@@ -119,6 +119,7 @@ echo "extension=phalcon.so" > ${PHP_ENV_DIR}/etc/conf.d/phalcon.ini
 # to properly reuse the cache
 cd ${PHALCON_DIR}
 LOCAL=$(git rev-parse @ 2>/dev/null || true)
+mkdir -p ${PHALCON_CACHE_DIR}
 mv ${PHALCON_DIR}/build/64bits/modules/phalcon.so ${PHALCON_CACHE_DIR}/phalcon-${PHP_VER}-${LOCAL:0:7}.so
 echo "Cached phalcon extension [ phalcon-${PHP_VER}-${LOCAL:0:7}.so ] for future builds."
 
