@@ -22,9 +22,12 @@ PHP_EXT_DIR=$(php-config --extension-dir)
 # Prior to building, attempt to enable phalcon from a cached dependency 
 # which may have been set via the CI environment YML declaration. This is
 # important as it helps improve performance for fast builds.
-if [ -d "${PHALCON_DIR}" ]; then
-    cd ${PHALCON_DIR}
 
+# Note: Travis creates the folder ahead of time so it's important to explicitly
+# check for the .git folder to ensure we can perform git operations.
+if [ -d "${PHALCON_DIR}" ] && [ -d "${PHALCON_DIR}/.git" ]; then
+
+    cd ${PHALCON_DIR}
     TMP_PHALCON_SAVED_MODULES_DIR=$(mktemp -d)
 
     # Prior to resetting the current clone, save any previously cached modules.
@@ -49,7 +52,7 @@ if [ -d "${PHALCON_DIR}" ]; then
     # Checkout specific ref    
     echo "Updating Phalcon to latest revision for ref: ${PHALCON_INSTALL_REF}"
     set +e
-    git checkout ${PHALCON_INSTALL_REF}
+    git checkout ${PHALCON_INSTALL_REF} &>/dev/null
 
     # This could potentially fail for older versions that had a depth limiter from < 1.0.2 of the installer.
     # Handle gracefully and clean the cache automatically.
