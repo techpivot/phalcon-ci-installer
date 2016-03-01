@@ -13,11 +13,17 @@ fi
 
 PHALCON_INSTALL_REF=${1:-master}
 PHALCON_DIR=${HOME}/cphalcon
-PHALCON_CACHE_DIR=${HOME}/cphalcon/cache
+PHALCON_CACHE_DIR=${PHALCON_DIR}/cache
 PHP_VER=$(phpenv version-name)
 PHP_ENV_DIR=$(dirname $(dirname $(which phpenv)))/versions/${PHP_VER}
 PHP_EXT_DIR=$(php-config --extension-dir)
 
+
+# Codeship doesn't support specifying a directory
+if [ "${CI_NAME}" == "codeship" ]; then
+    PHALCON_DIR=~/cache/cphalcon
+    PHALCON_CACHE_DIR=~${PHALCON_DIR}/cache
+fi
 
 # Prior to building, attempt to enable phalcon from a cached dependency 
 # which may have been set via the CI environment YML declaration. This is

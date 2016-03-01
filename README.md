@@ -146,5 +146,3 @@ composer install --prefer-source --no-interaction
 # Install Phalcon
 vendor/bin/install-phalcon.sh
 ```
-**Codeship Notes**
-* Caching does not work with Codeship directories and therefore Phalcon can not be cached. Build time is approximately 1 min 30 sec
