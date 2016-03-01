@@ -41,13 +41,13 @@ Examples:
 
 ```bash
 # Install latest version from default branch
-./bin/install-phalcon.sh
+vendor/bin/install-phalcon.sh
 
 # Install latest revision from branch "2.1.x"
-./bin/install-phalcon.sh 2.1.x
+vendor/bin/install-phalcon.sh 2.1.x
 
 # Install specific release tag "phalcon-v2.0.9"
-./bin/install-phalcon.sh phalcon-v2.0.9
+vendor/bin/install-phalcon.sh phalcon-v2.0.9
 ```
 
 ## CircleCI
