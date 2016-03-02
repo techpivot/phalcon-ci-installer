@@ -147,6 +147,7 @@ composer install --prefer-source --no-interaction
 vendor/bin/install-phalcon.sh
 ```
 
+
 ## ScrutinizerCI
 
 **`.scrutinizer.yml`**
@@ -164,7 +165,7 @@ build:
         override:
             - composer install --prefer-source --no-interaction
         after: 
-            - bin/install-phalcon.sh
+            - vendor/bin/install-phalcon.sh
 ```
 **ScrutinizerCI Notes**
 > No need to include the `vendor/` cache directory as this is cached automatically.
