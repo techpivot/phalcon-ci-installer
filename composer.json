@@ -1,6 +1,6 @@
 {
     "name": "techpivot/phalcon-ci-installer",
-    "description": "Composer integration for PHP applications to install the Phalcon framework as an extension in the PHP runtime for various hosted CI services including TravisCI, CircleCI, Shippable and Codeship.",
+    "description": "Composer integration for PHP applications to install the Phalcon framework as an extension in the PHP runtime for various hosted CI services including TravisCI, CircleCI, Scrutinizer, Shippable and Codeship.",
     "license": "MIT",
     "keywords": [ 
         "TechPivot", 
@@ -9,6 +9,7 @@
         "Continuous Integration",
         "CircleCI",
         "TravisCI",
+        "ScrutinizerCI",
         "Shippable",
         "Codeship"
     ],
