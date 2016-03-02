@@ -11,7 +11,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/techpivot/phalcon-ci-installer/master/LICENSE)
 
 
-Composer integration for PHP applications to install the [Phalcon](https://phalconphp.com) framework as an extension in the PHP runtime for various hosted CI services including TravisCI, CircleCI, Shippable and Codeship.
+Composer integration for PHP applications to install the [Phalcon](https://phalconphp.com) framework as an extension in the PHP runtime for various hosted CI services including CircleCI, TravisCI, ScrutinizerCI, Shippable and Codeship.
 
 
 ### Features
