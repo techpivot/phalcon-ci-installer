@@ -146,3 +146,25 @@ composer install --prefer-source --no-interaction
 # Install Phalcon
 vendor/bin/install-phalcon.sh
 ```
+
+## ScrutinizerCI
+
+**`.scrutinizer.yml`**
+```yml
+build:
+    environment:
+        php:
+            version: 5.6.16
+
+    cache:
+        directories:
+            - ~/cphalcon
+
+    dependencies:
+        override:
+            - composer install --prefer-source --no-interaction
+        after: 
+            - bin/install-phalcon.sh
+```
+**ScrutinizerCI Notes**
+> No need to include the `vendor/` cache directory as this is cached automatically.

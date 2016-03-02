@@ -1,0 +1,14 @@
+build:
+    environment:
+        php:
+            version: 5.6.16
+
+    cache:
+        directories:
+            - ~/cphalcon
+
+    dependencies:
+        override:
+            - composer install --prefer-source --no-interaction
+        after: 
+            - bin/install-phalcon.sh
