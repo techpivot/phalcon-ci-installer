@@ -14,14 +14,26 @@
 Composer integration for PHP applications to install the [Phalcon](https://phalconphp.com) framework as an extension in the PHP runtime for various hosted CI services including CircleCI, TravisCI, ScrutinizerCI, Shippable and Codeship.
 
 
-### Features
+## Features
 * Phalcon extension loaded in PHP runtime
 * Native cache support to prevent rebuilding Phalcon from source
 * Auto-detection of latest tagged Phalcon version
 * Install specific Phalcon versions, tags and releases _(Since 1.0.2)_
 
 
-### Installation
+## Version Compatibility
+
+The following table outlines general compability of Phalcon inside various CI environments. 
+
+| PHP CI Version | Supported Phalcon Version(s) |
+|-----------------|----------------------------------|
+| 5.3.x           | ✖   (Not supported) |
+| 5.4.x           | ✔   `master`, `2.0.x`, `2.1.x` |
+| 5.5.x           | ✔   `master`, `2.0.x`, `2.1.x` |
+| 5.6.x           | ✔   `master`, `2.0.x`, `2.1.x` |
+| 7.x             | ✖   _(Coming soon)_  |
+
+## Installation
 
 1. Add the `techpivot/phalcon-ci-installer` repository into the **require-dev** section of your `composer.json` as follows:
 
@@ -34,7 +46,7 @@ Composer integration for PHP applications to install the [Phalcon](https://phalc
 relevant section. See the examples below for various CI providers.
 
 
-### Options
+## Options
 
 The installer takes one optional argument that can be used to specify a specific branch or tag.
 
@@ -51,7 +63,9 @@ vendor/bin/install-phalcon.sh 2.1.x
 vendor/bin/install-phalcon.sh phalcon-v2.0.9
 ```
 
-## CircleCI
+## CI Environments
+
+### CircleCI
 
 **`circle.yml`**
 ```yml
@@ -76,7 +90,7 @@ test:
 * In order to cache data for faster builds, ensure the `cache_directories` directives are specified as outlined above.
 
 
-## TravisCI
+### TravisCI
 
 **`.travis.yml`**
 ```yml
@@ -106,7 +120,7 @@ notifications:
 * Caching work great with TravisCI. Multiple PHP versions can be specified and each one will be cached independently.
 
 
-## ScrutinizerCI
+### ScrutinizerCI
 
 **`.scrutinizer.yml`**
 ```yml
@@ -129,7 +143,7 @@ build:
 > No need to include the `vendor/` cache directory as this is cached automatically.
 
 
-## Shippable
+### Shippable
 
 **`shippable.yml`**
 ```yml
@@ -159,7 +173,7 @@ would be to use a single PHP instance, with `cache: true` and then whenever Phal
 that the next commit utilizes the **[reset minion]** flag.
 
 
-## Codeship
+### Codeship
 Sample **Setup Commands**
 
 ```bash
