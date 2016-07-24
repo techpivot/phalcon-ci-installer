@@ -181,7 +181,6 @@ build:
     - ~/cphalcon
 
   ci:
-    - composer self-update
     - composer install --prefer-source --no-interaction
     - bin/install-phalcon.sh 2.1.x
 ```

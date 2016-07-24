@@ -11,7 +11,6 @@ build:
 
   ci:
     - php --version
-    - composer self-update
     - composer install --prefer-source --no-interaction
     - bin/install-phalcon.sh 2.1.x
     - php -r "echo \Phalcon\Version::get();"
