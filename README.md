@@ -4,7 +4,7 @@
 [![Travis CI](https://img.shields.io/travis/techpivot/phalcon-ci-installer/master.svg?label=travisci&style=flat-square)](https://travis-ci.org/techpivot/phalcon-ci-installer)
 [![Scrutinizer](https://img.shields.io/scrutinizer/build/g/filp/whoops.svg?label=scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/techpivot/phalcon-ci-installer/)
 [![Codeship](https://img.shields.io/codeship/546abfd0-3037-0134-bd3d-7603af744759/master.svg?label=codeship&style=flat-square)](https://codeship.com/projects/109153)
-[![Shippable](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg?style=flat-square)](https://app.shippable.com/projects/56204d941895ca44741e1583)
+[![Shippable](https://img.shields.io/shippable/56204d941895ca44741e1583/master.svg?label=shippable&style=flat-square)](https://app.shippable.com/projects/56204d941895ca44741e1583)
 
 [![Latest Version](https://img.shields.io/packagist/v/techpivot/phalcon-ci-installer.svg?style=flat-square)](https://packagist.org/packages/techpivot/phalcon-ci-installer)
 [![Total Downloads](https://img.shields.io/packagist/dt/techpivot/phalcon-ci-installer.svg?style=flat-square)](https://packagist.org/packages/techpivot/phalcon-ci-installer)
