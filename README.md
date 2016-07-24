@@ -19,7 +19,7 @@ Composer integration for PHP applications to install the [Phalcon](https://phalc
 * Native cache support to prevent rebuilding Phalcon from source
 * Auto-detection of latest tagged Phalcon version
 * Install specific Phalcon versions, tags and releases _(Since 1.0.2)_
-* Supports PHP7 and Phalcon 2.1.x _(Since 1.0.3)_
+* Supports PHP7 and Phalcon 2.1.x _(Since 1.0.4)_
 
 
 ## Version Compatibility
