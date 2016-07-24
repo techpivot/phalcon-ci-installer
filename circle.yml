@@ -11,7 +11,7 @@ dependencies:
     - php --version
 
   post:
-    - bin/install-phalcon.sh 2.0.x
+    - bin/install-phalcon.sh phalcon-v2.0.13
     - php -r "echo \Phalcon\Version::get();"
 
 test:

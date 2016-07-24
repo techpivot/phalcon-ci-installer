@@ -88,7 +88,7 @@ dependencies:
     - ~/cphalcon
 
   post:
-    - vendor/bin/install-phalcon.sh
+    - vendor/bin/install-phalcon.sh phalcon-v2.0.13
 
 test:
   override:
@@ -146,7 +146,7 @@ notifications:
 build:
     environment:
         php:
-            version: 5.6.16
+            version: 7.0.8
 
     cache:
         directories:
@@ -156,7 +156,7 @@ build:
         override:
             - composer install --prefer-source --no-interaction
         after: 
-            - vendor/bin/install-phalcon.sh
+            - vendor/bin/install-phalcon.sh 2.1.x
 ```
 
 > **Note:** No need to include the `vendor/` cache directory as this is cached automatically.
