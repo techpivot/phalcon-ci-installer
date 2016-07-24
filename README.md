@@ -1,7 +1,7 @@
 # Phalcon CI Installer
 
-[![Travis CI](https://img.shields.io/travis/techpivot/phalcon-ci-installer/master.svg?label=travisci&style=flat-square)](https://travis-ci.org/techpivot/phalcon-ci-installer)
 [![CircleCI](https://img.shields.io/circleci/token/e0f3c984c936d88ad20ca9db4112f032d27930af/project/techpivot/phalcon-ci-installer/master.svg?label=circleci&style=flat-square)](https://circleci.com/gh/techpivot/phalcon-ci-installer)
+[![Travis CI](https://img.shields.io/travis/techpivot/phalcon-ci-installer/master.svg?label=travisci&style=flat-square)](https://travis-ci.org/techpivot/phalcon-ci-installer)
 [![Scrutinizer](https://img.shields.io/scrutinizer/build/g/filp/whoops.svg?label=scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/techpivot/phalcon-ci-installer/)
 [![Shippable](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg?style=flat-square)](https://app.shippable.com/projects/56204d941895ca44741e1583)
 [![Codeship](https://codeship.com/projects/d6305600-55cf-0133-0a31-0ebfbd542ed0/status?branch=master)](https://codeship.com/projects/109153)
@@ -29,10 +29,10 @@ The following table outlines general compability of Phalcon inside various CI en
 | PHP CI Version | Phalcon Version(s) | CI Environment |
 |:---------------|:-------------------|:---------------|
 | 5.3            | ✖   (Not supported)            | - |
-| 5.4            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Codeship, Shippable |
-| 5.5            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Codeship, Shippable |
-| 5.6            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Codeship, Shippable |
-| 7.0            | ✔   `2.1.x`                    | ✔ CircleCI, TravisCI, ScrutinizerCI, Codeship, Shippable |
+| 5.4            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Shippable, Codeship |
+| 5.5            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Shippable, Codeship |
+| 5.6            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Shippable, Codeship |
+| 7.0            | ✔   `2.1.x`                    | ✔ CircleCI, TravisCI, ScrutinizerCI, Shippable, Codeship |
 
 
 ## Installation
@@ -170,7 +170,6 @@ build:
 **`shippable.yml`**
 ```yml
 language: php
-
 php:
   - 7.0
 
@@ -186,12 +185,6 @@ before_script:
 script:
   - vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage
 ```
-
-> **Note:** Centralized caching does not work reliably with Shippable. Presently, there is limited form of caching using the `cache: true`
-parameter; however, this does not update after new builds are complete. As a result of this, the only way to flush
-the cache is to commit with the **[reset minion]** flag. If Shippable is your primary CI, my recommendation
-would be to use a single PHP instance, with `cache: true` and then whenever Phalcon becomes out-of-date, ensure
-that the next commit utilizes the **[reset minion]** flag.
 
 <!-- -->
 > **Reference:** [Shippable PHP Versions](http://docs.shippable.com/ci_languages/#php)
