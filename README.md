@@ -3,15 +3,15 @@
 [![CircleCI](https://img.shields.io/circleci/token/e0f3c984c936d88ad20ca9db4112f032d27930af/project/techpivot/phalcon-ci-installer/master.svg?label=circleci&style=flat-square)](https://circleci.com/gh/techpivot/phalcon-ci-installer)
 [![Travis CI](https://img.shields.io/travis/techpivot/phalcon-ci-installer/master.svg?label=travisci&style=flat-square)](https://travis-ci.org/techpivot/phalcon-ci-installer)
 [![Scrutinizer](https://img.shields.io/scrutinizer/build/g/filp/whoops.svg?label=scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/techpivot/phalcon-ci-installer/)
+[![Codeship](https://img.shields.io/codeship/546abfd0-3037-0134-bd3d-7603af744759/master.svg?label=codeship&style=flat-square)](https://codeship.com/projects/109153)
 [![Shippable](https://img.shields.io/shippable/561c5b621895ca44741d44c7.svg?style=flat-square)](https://app.shippable.com/projects/56204d941895ca44741e1583)
-[![Codeship](https://codeship.com/projects/d6305600-55cf-0133-0a31-0ebfbd542ed0/status?branch=master)](https://codeship.com/projects/109153)
 
 [![Latest Version](https://img.shields.io/packagist/v/techpivot/phalcon-ci-installer.svg?style=flat-square)](https://packagist.org/packages/techpivot/phalcon-ci-installer)
 [![Total Downloads](https://img.shields.io/packagist/dt/techpivot/phalcon-ci-installer.svg?style=flat-square)](https://packagist.org/packages/techpivot/phalcon-ci-installer)
 [![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/techpivot/phalcon-ci-installer/master/LICENSE)
 
 
-Composer integration for PHP applications to install the [Phalcon](https://phalconphp.com) framework as an extension in the PHP runtime for various hosted CI services including CircleCI, TravisCI, ScrutinizerCI, Shippable and Codeship.
+Composer integration for PHP applications to install the [Phalcon](https://phalconphp.com) framework as an extension in the PHP runtime for various hosted CI services including CircleCI, Travis CI, Scrutinizer, Codeship, and Shippable.
 
 
 ## Features
@@ -29,10 +29,10 @@ The following table outlines general compability of Phalcon inside various CI en
 | PHP CI Version | Phalcon Version(s) | CI Environment |
 |:---------------|:-------------------|:---------------|
 | 5.3            | ✖   (Not supported)            | - |
-| 5.4            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Shippable, Codeship |
-| 5.5            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Shippable, Codeship |
-| 5.6            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Shippable, Codeship |
-| 7.0            | ✔   `2.1.x`                    | ✔ CircleCI, TravisCI, ScrutinizerCI, Shippable, Codeship |
+| 5.4            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
+| 5.5            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
+| 5.6            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
+| 7.0            | ✔   `2.1.x`                    | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
 
 
 ## Installation
@@ -104,7 +104,7 @@ test:
 > **Reference:** CircleCI PHP Versions – [Ubuntu 14.04](https://circleci.com/docs/build-image-trusty/#php) • [Ubuntu 12.04](https://circleci.com/docs/build-image-precise/#php)
 
 
-### TravisCI
+### Travis CI
 
 **`.travis.yml`**
 ```yml
@@ -139,7 +139,7 @@ notifications:
 > **Reference:** [TravisCI PHP Versions](https://docs.travis-ci.com/user/languages/php#Choosing-PHP-versions-to-test-against)
 
 
-### ScrutinizerCI
+### Scrutinizer
 
 **`.scrutinizer.yml`**
 ```yml
@@ -165,6 +165,19 @@ build:
 > **Reference:** [ScrutinizerCI PHP Versions](https://scrutinizer-ci.com/docs/configuration/build#php)
 
 
+### Codeship
+Sample **Setup Commands**
+
+```bash
+phpenv local 5.6
+php --version
+composer install --prefer-source --no-interaction
+vendor/bin/install-phalcon.sh
+```
+
+> **Reference:** [Codeship CI PHP Versions](https://codeship.com/documentation/languages/php/#versions)
+
+
 ### Shippable
 
 **`shippable.yml`**
@@ -187,16 +200,3 @@ build:
 
 <!-- -->
 > **Reference:** [Shippable PHP Versions](http://docs.shippable.com/ci_languages/#php)
-
-
-### Codeship
-Sample **Setup Commands**
-
-```bash
-phpenv local 5.6
-php --version
-composer install --prefer-source --no-interaction
-vendor/bin/install-phalcon.sh
-```
-
-> **Reference:** [Codeship CI PHP Versions](https://codeship.com/documentation/languages/php/#versions)
