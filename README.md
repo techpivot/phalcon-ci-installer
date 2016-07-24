@@ -173,17 +173,17 @@ language: php
 php:
   - 7.0
 
-before_install:
-  - composer self-update
-  - composer install --prefer-source --no-interaction
-  - vendor/bin/install-phalcon.sh 2.1.x
+build:
+  cache: true
+    
+  cache_dir_list:
+    - $SHIPPABLE_BUILD_DIR/vendor
+    - ~/cphalcon
 
-before_script:
-  - mkdir -p shippable/codecoverage
-  - mkdir -p shippable/testresults
-
-script:
-  - vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage
+  ci:
+    - composer self-update
+    - composer install --prefer-source --no-interaction
+    - bin/install-phalcon.sh 2.1.x
 ```
 
 <!-- -->

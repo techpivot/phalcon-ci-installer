@@ -2,17 +2,17 @@ language: php
 php:
   - 7.0
 
-cache: true
+build:
+  cache: true
+    
+  cache_dir_list:
+    - $SHIPPABLE_BUILD_DIR/vendor
+    - ~/cphalcon
 
-before_install:
-  - php --version
-  - composer self-update
-  - composer install --prefer-source --no-interaction
-  - bin/install-phalcon.sh 2.1.x
-
-script:
-  - php -r "echo \Phalcon\Version::get();"
-  - vendor/bin/phpunit
-
-notifications:
-  email: false
+  ci:
+    - php --version
+    - composer self-update
+    - composer install --prefer-source --no-interaction
+    - bin/install-phalcon.sh 2.1.x
+    - php -r "echo \Phalcon\Version::get();"
+    - vendor/bin/phpunit

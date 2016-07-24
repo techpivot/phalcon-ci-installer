@@ -20,18 +20,11 @@ PHP_ENV_DIR=$(dirname $(dirname $(which phpenv)))/versions/${PHP_VER}
 PHP_EXT_DIR=$(php-config --extension-dir)
 PHP_CONF_DIR=${PHP_ENV_DIR}/etc/conf.d
 
-
 if [ "${CI_NAME}" == "codeship" ]; then
     # Codeship doesn't support specifying a directory so nest the phalcon build cache inside the 
     # special dependency caching folder
     
     PHALCON_DIR=${HOME}/cache/cphalcon
-    PHALCON_CACHE_DIR=${PHALCON_DIR}/cache
-elif [ "${SHIPPABLE}" = true ]; then
-    # Shippable caches the app dir and resets. Therefore, move the cache dir into a non-conflicting
-    # directory within the CI application.
-    
-    PHALCON_DIR=${CI_APP_DIR}/_shippable-cache/cphalcon
     PHALCON_CACHE_DIR=${PHALCON_DIR}/cache
 fi
 
