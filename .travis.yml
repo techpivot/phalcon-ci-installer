@@ -4,18 +4,20 @@ php:
   - 5.4
   - 5.5
   - 5.6
+  - 7.0
 
 cache:
   directories:
     - vendor
-    - $HOME/.composer/cache
-    - $HOME/cphalcon
+    - ~/.composer/cache
+    - ~/cphalcon
 
 before_install:
   - composer install --prefer-source --no-interaction
-  - bin/install-phalcon.sh
+  - bin/install-phalcon.sh 2.1.x
 
 script:
+  - php -r "echo \Phalcon\Version::get();"
   - vendor/bin/phpunit
 
 notifications:

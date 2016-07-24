@@ -11,18 +11,28 @@ if [ "${CI}" != "true" ]; then
 fi
 
 
+CI_APP_DIR=${PWD}
 PHALCON_INSTALL_REF=${1:-master}
 PHALCON_DIR=${HOME}/cphalcon
 PHALCON_CACHE_DIR=${PHALCON_DIR}/cache
 PHP_VER=$(phpenv version-name)
 PHP_ENV_DIR=$(dirname $(dirname $(which phpenv)))/versions/${PHP_VER}
 PHP_EXT_DIR=$(php-config --extension-dir)
+PHP_CONF_DIR=${PHP_ENV_DIR}/etc/conf.d
 
 
-# Codeship doesn't support specifying a directory
 if [ "${CI_NAME}" == "codeship" ]; then
-    PHALCON_DIR=~/cache/cphalcon
-    PHALCON_CACHE_DIR=~${PHALCON_DIR}/cache
+    # Codeship doesn't support specifying a directory so nest the phalcon build cache inside the 
+    # special dependency caching folder
+    
+    PHALCON_DIR=${HOME}/cache/cphalcon
+    PHALCON_CACHE_DIR=${PHALCON_DIR}/cache
+elif [ "${SHIPPABLE}" = true ]; then
+    # Shippable caches the app dir and resets. Therefore, move the cache dir into a non-conflicting
+    # directory within the CI application.
+    
+    PHALCON_DIR=${CI_APP_DIR}/_shippable-cache/cphalcon
+    PHALCON_CACHE_DIR=${PHALCON_DIR}/cache
 fi
 
 # Prior to building, attempt to enable phalcon from a cached dependency 
@@ -32,7 +42,6 @@ fi
 # Note: Travis creates the folder ahead of time so it's important to explicitly
 # check for the .git folder to ensure we can perform git operations.
 if [ -d "${PHALCON_DIR}" ] && [ -d "${PHALCON_DIR}/.git" ]; then
-
     cd ${PHALCON_DIR}
     TMP_PHALCON_SAVED_MODULES_DIR=$(mktemp -d)
 
@@ -51,8 +60,7 @@ if [ -d "${PHALCON_DIR}" ] && [ -d "${PHALCON_DIR}/.git" ]; then
     # Now reset and update
     echo "Cleaning Phalcon directory ..."
     git reset --hard
-    git clean -f
-    git checkout master &> /dev/null
+    git clean --force
     git pull &> /dev/null
 
     # Checkout specific ref    
@@ -88,16 +96,16 @@ if [ -d "${PHALCON_DIR}" ] && [ -d "${PHALCON_DIR}/.git" ]; then
     rm -rf ${TMP_PHALCON_SAVED_MODULES_DIR}
 
     # Debug
-    LOCAL=$(git rev-parse @ 2>/dev/null || true)
+    PHALCON_GIT_REF=$(git rev-parse @ 2>/dev/null || true)
     echo "PHP Version: ${PHP_VER}"
-    echo "Phalcon Version: ${LOCAL}"
+    echo "Phalcon Version: ${PHALCON_GIT_REF}"
     
     # Determine if we have the cached module?
-    if [ -f "${PHALCON_CACHE_DIR}/phalcon-${PHP_VER}-${LOCAL:0:7}.so" ]; then
+    if [ -f "${PHALCON_CACHE_DIR}/phalcon-${PHP_VER}-${PHALCON_GIT_REF:0:7}.so" ]; then
         echo -e "\u2714  Found cached module."
         echo "Enabling cached version ..."
-        cp --verbose ${PHALCON_CACHE_DIR}/phalcon-${PHP_VER}-${LOCAL:0:7}.so ${PHP_EXT_DIR}/phalcon.so
-        echo "extension=phalcon.so" > ${PHP_ENV_DIR}/etc/conf.d/phalcon.ini
+        cp --verbose ${PHALCON_CACHE_DIR}/phalcon-${PHP_VER}-${PHALCON_GIT_REF:0:7}.so ${PHP_EXT_DIR}/phalcon.so
+        echo "extension=phalcon.so" > ${PHP_CONF_DIR}/phalcon.ini
         ELAPSED_TIME=$(python -c "print round(($(date +%s.%3N) - ${START_TIME}), 3)")
         echo "Phalcon extension enabled in ${ELAPSED_TIME} sec"
         exit
@@ -114,24 +122,69 @@ else
     echo "Checking out: ${PHALCON_INSTALL_REF} ..."
     cd ${PHALCON_DIR}
     git checkout ${PHALCON_INSTALL_REF}
+    
+    PHALCON_GIT_REF=$(git rev-parse @ 2>/dev/null || true)
 fi
 
-# Build Phalcon. Note that Codeship has issues with the phpenv not being setup correctly even when
-# specified. Ensure that the correct version adds the required binaries to the PATH prior to the global phpenv.
-echo "Building Phalcon ..."
-cd ${PHALCON_DIR}/build
-PATH=${PHP_ENV_DIR}/bin:${PATH}
-./install
-echo "extension=phalcon.so" > ${PHP_ENV_DIR}/etc/conf.d/phalcon.ini
+# Clean headers. In the event the cache is shared amongst multiple PHP CI containers
+# (e.g. Travis supports multiple parallel environments using a similar cache) we
+# need to remove headers from previous version.
 
-# Cache the executable specific to the PHP version which will allow for multiple CI environments
-# to properly reuse the cache
-cd ${PHALCON_DIR}
-LOCAL=$(git rev-parse @ 2>/dev/null || true)
+# Clean
+cd ${PHALCON_DIR}/ext
+./clean
+        
+# Build Phalcon.
+echo "Building Phalcon for ${PHP_VER} ..."
+
+# Temporarilly using zephir for all builds. Once https://github.com/phalcon/cphalcon/issues/11961 
+# gets fixed we can revert to only PHP7 using zephir.
+
+# Various CI Providers including Codeship, CircleCI have issues when compiling Zephir 
+# and require higher PHP limits even though the container has adaquete memory.
+echo "memory_limit=-1" > ${PHP_CONF_DIR}/phalcon-ci-installer.ini
+
+# if [[ $PHP_VER == 7* ]]; then
+
+    # Note that Codeship has potential to set only the local PHP environment since this
+    # option is how the environment is setup. Documentation references using `phpenv local ...`
+    # Therefore, since Zephir uses global PHP, ensure we set globally.
+    phpenv global ${PHP_VER}
+        
+    # Clean parsers
+    cd ${CI_APP_DIR}/vendor/phalcon/zephir/parser
+    phpize --clean
+    
+    # Compile
+    cd ${PHALCON_DIR}
+    if [[ $PHP_VER == 7* ]]; then
+        ${CI_APP_DIR}/vendor/phalcon/zephir/bin/zephir compile --backend=ZendEngine3
+    else 
+        ${CI_APP_DIR}/vendor/phalcon/zephir/bin/zephir compile
+    fi
+        
+    # Install
+    cd ${PHALCON_DIR}/ext
+    # Using debug flags (Production flags: "-O2 -fvisibility=hidden -Wparentheses -DZEPHIR_RELEASE=1")
+    export CFLAGS="-g3 -O1 -std=gnu90 -Wall -DZEPHIR_RELEASE=0"
+    phpize
+    ./configure --enable-phalcon
+    make --silent -j4
+    make --silent install
+# else
+#     cd ${PHALCON_DIR}/build
+#     ./install
+# fi
+
+# Ensure extension exists
+echo "extension=phalcon.so" > ${PHP_CONF_DIR}/phalcon.ini
+echo "Added phalcon PHP extension."
+
+# Cache the executable specific to the PHP/Phalcon version combination for future builds
 mkdir -p ${PHALCON_CACHE_DIR}
-mv ${PHALCON_DIR}/build/64bits/modules/phalcon.so ${PHALCON_CACHE_DIR}/phalcon-${PHP_VER}-${LOCAL:0:7}.so
-echo "Cached phalcon extension [ phalcon-${PHP_VER}-${LOCAL:0:7}.so ] for future builds."
+cp ${PHP_EXT_DIR}/phalcon.so ${PHALCON_CACHE_DIR}/phalcon-${PHP_VER}-${PHALCON_GIT_REF:0:7}.so
+echo "Cached phalcon extension [ phalcon-${PHP_VER}-${PHALCON_GIT_REF:0:7}.so ] for future builds."
 
-
+# Complete
 ELAPSED_TIME=$(python -c "print round(($(date +%s.%3N) - ${START_TIME}), 3)")
 echo "Phalcon extension compiled and installed in ${ELAPSED_TIME} sec"

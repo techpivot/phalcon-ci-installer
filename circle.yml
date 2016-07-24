@@ -5,10 +5,14 @@ machine:
 dependencies:
   cache_directories:
     - vendor
-    - ./../cphalcon
+    - ~/cphalcon
+
+  pre:
+    - php --version
 
   post:
-    - bin/install-phalcon.sh
+    - bin/install-phalcon.sh 2.1.x
+    - php -r "echo \Phalcon\Version::get();"
 
 test:
   override:

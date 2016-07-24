@@ -19,19 +19,21 @@ Composer integration for PHP applications to install the [Phalcon](https://phalc
 * Native cache support to prevent rebuilding Phalcon from source
 * Auto-detection of latest tagged Phalcon version
 * Install specific Phalcon versions, tags and releases _(Since 1.0.2)_
+* Supports PHP7 and Phalcon 2.1.x _(Since 1.0.3)_
 
 
 ## Version Compatibility
 
 The following table outlines general compability of Phalcon inside various CI environments. 
 
-| PHP CI Version | Supported Phalcon Version(s) |
-|-----------------|----------------------------------|
-| 5.3.x           | ✖   (Not supported) |
-| 5.4.x           | ✔   `master`, `2.0.x`, `2.1.x` |
-| 5.5.x           | ✔   `master`, `2.0.x`, `2.1.x` |
-| 5.6.x           | ✔   `master`, `2.0.x`, `2.1.x` |
-| 7.x             | ✖   _(Coming soon)_  |
+| PHP CI Version | Phalcon Version(s) | CI Environment |
+|:---------------|:-------------------|:---------------|
+| 5.3            | ✖   (Not supported)            | - |
+| 5.4            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Codeship, Shippable |
+| 5.5            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Codeship, Shippable |
+| 5.6            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, TravisCI, ScrutinizerCI, Codeship, Shippable |
+| 7.0            | ✔   `2.1.x`                    | ✔ CircleCI, TravisCI, ScrutinizerCI, Codeship, Shippable |
+
 
 ## Installation
 
@@ -63,7 +65,14 @@ vendor/bin/install-phalcon.sh 2.1.x
 vendor/bin/install-phalcon.sh phalcon-v2.0.9
 ```
 
+> **Note:** The Phalcon CI installer is designed to cache the resulting binaries that correspond to the Phalcon/PHP version. 
+Specifing a release or tagged version will result in the best performance as subsequent builds (depending on CI 
+container/settings)  will be cached. Building from a branch (including the default master option) will result in a 
+Phalcon rebuild every time the installer detects a new version that is not yet cached.
+
+
 ## CI Environments
+
 
 ### CircleCI
 
@@ -71,12 +80,12 @@ vendor/bin/install-phalcon.sh phalcon-v2.0.9
 ```yml
 machine:
   php:
-    version: 5.6.5
+    version: 5.6.14
 
 dependencies:
   cache_directories:
     - vendor
-    - ./../cphalcon
+    - ~/cphalcon
 
   post:
     - vendor/bin/install-phalcon.sh
@@ -85,9 +94,14 @@ test:
   override:
     - vendor/bin/phpunit
 ```
-**CircleCI Notes**
-* Ensure that the `bash vendor/bin/circleci-install-phalcon.sh` is executed in the **post** phase, which will allow for the inclusion of the `techpivot/phalcon-ci-installer` repository during the composer installation at inference or override phase.
-* In order to cache data for faster builds, ensure the `cache_directories` directives are specified as outlined above.
+
+> **Note:** In order to cache data for faster builds, ensure the `cache_directories` directives are specified as outlined above.
+
+<!-- -->
+> **Note:** Ensure that the `vendor/bin/circleci-install-phalcon.sh` is executed in the **post** phase, which will allow for the inclusion of the `techpivot/phalcon-ci-installer` repository during the composer installation at inference or override phase.
+
+<!-- -->
+> **Reference:** CircleCI PHP Versions – [Ubuntu 14.04](https://circleci.com/docs/build-image-trusty/#php) • [Ubuntu 12.04](https://circleci.com/docs/build-image-precise/#php)
 
 
 ### TravisCI
@@ -97,18 +111,20 @@ test:
 language: php
 
 php:
+  - 5.4
   - 5.5
   - 5.6
+  - 7.0
 
 cache:
   directories:
     - vendor
-    - $HOME/.composer/cache
-    - $HOME/cphalcon
+    - ~/.composer/cache
+    - ~/cphalcon
 
 before_install:
   - composer install --prefer-source --no-interaction
-  - vendor/bin/install-phalcon.sh
+  - vendor/bin/install-phalcon.sh 2.1.x
 
 script:
   - vendor/bin/phpunit
@@ -116,8 +132,11 @@ script:
 notifications:
   email: false
 ```
-**TravisCI Notes**
-* Caching work great with TravisCI. Multiple PHP versions can be specified and each one will be cached independently.
+
+> **Note:** Multiple PHP versions can be specified and each one will be cached independently; however, the phalcon target ref (branch or tag) will be applied for all builds
+
+<!-- -->
+> **Reference:** [TravisCI PHP Versions](https://docs.travis-ci.com/user/languages/php#Choosing-PHP-versions-to-test-against)
 
 
 ### ScrutinizerCI
@@ -139,8 +158,11 @@ build:
         after: 
             - vendor/bin/install-phalcon.sh
 ```
-**ScrutinizerCI Notes**
-> No need to include the `vendor/` cache directory as this is cached automatically.
+
+> **Note:** No need to include the `vendor/` cache directory as this is cached automatically.
+
+<!-- -->
+> **Reference:** [ScrutinizerCI PHP Versions](https://scrutinizer-ci.com/docs/configuration/build#php)
 
 
 ### Shippable
@@ -150,13 +172,12 @@ build:
 language: php
 
 php:
-  - 5.5
-  - 5.6
+  - 7.0
 
 before_install:
   - composer self-update
   - composer install --prefer-source --no-interaction
-  - vendor/bin/install-phalcon.sh  
+  - vendor/bin/install-phalcon.sh 2.1.x
 
 before_script:
   - mkdir -p shippable/codecoverage
@@ -165,22 +186,25 @@ before_script:
 script:
   - vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage
 ```
-**Shipable Notes**
-* Centralized caching does not work with Shippable. Presently, there is limited form of caching using the `cache: true`
+
+> **Note:** Centralized caching does not work reliably with Shippable. Presently, there is limited form of caching using the `cache: true`
 parameter; however, this does not update after new builds are complete. As a result of this, the only way to flush
 the cache is to commit with the **[reset minion]** flag. If Shippable is your primary CI, my recommendation
 would be to use a single PHP instance, with `cache: true` and then whenever Phalcon becomes out-of-date, ensure
 that the next commit utilizes the **[reset minion]** flag.
+
+<!-- -->
+> **Reference:** [Shippable PHP Versions](http://docs.shippable.com/ci_languages/#php)
 
 
 ### Codeship
 Sample **Setup Commands**
 
 ```bash
-# Set php version through phpenv. 5.3, 5.4, 5.5 & 5.6 available
 phpenv local 5.6
-# Install dependencies through Composer
+php --version
 composer install --prefer-source --no-interaction
-# Install Phalcon
 vendor/bin/install-phalcon.sh
 ```
+
+> **Reference:** [Codeship CI PHP Versions](https://codeship.com/documentation/languages/php/#versions)
