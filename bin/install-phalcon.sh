@@ -54,7 +54,11 @@ if [ -d "${PHALCON_DIR}" ] && [ -d "${PHALCON_DIR}/.git" ]; then
     echo "Cleaning Phalcon directory ..."
     git reset --hard
     git clean --force
+    
+    # Note: If we are in a tag we won't be on a branch. Therefore, fail silently
+    set +e
     git pull &> /dev/null
+    set -e
 
     # Checkout specific ref    
     echo "Updating Phalcon to latest revision for ref: ${PHALCON_INSTALL_REF}"
