@@ -11,5 +11,5 @@ build:
         override:
             - composer install --prefer-source --no-interaction
         after: 
-            - bin/install-phalcon.sh 2.1.x
+            - bin/install-phalcon.sh 3.0.x
             - php -r "echo \Phalcon\Version::get();"

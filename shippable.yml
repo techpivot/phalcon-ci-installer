@@ -12,6 +12,6 @@ build:
   ci:
     - php --version
     - composer install --prefer-source --no-interaction
-    - bin/install-phalcon.sh 2.1.x
+    - bin/install-phalcon.sh 3.0.x
     - php -r "echo \Phalcon\Version::get();"
     - vendor/bin/phpunit
