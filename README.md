@@ -19,7 +19,7 @@ Composer integration for PHP applications to install the [Phalcon](https://phalc
 * Native cache support to prevent rebuilding Phalcon from source
 * Auto-detection of latest tagged Phalcon version
 * Install specific Phalcon versions, tags and releases _(Since 1.0.2)_
-* Supports PHP7 and Phalcon 2.1.x _(Since 1.0.4)_
+* Supports PHP7 and Phalcon 3.0.x _(Since 1.0.4)_
 
 
 ## Version Compatibility
@@ -29,10 +29,10 @@ The following table outlines general compability of Phalcon inside various CI en
 | PHP CI Version | Phalcon Version(s) | CI Environment |
 |:---------------|:-------------------|:---------------|
 | 5.3            | ✖   (Not supported)            | - |
-| 5.4            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
-| 5.5            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
-| 5.6            | ✔   `master`, `2.0.x`, `2.1.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
-| 7.0            | ✔   `2.1.x`                    | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
+| 5.4            | ✔   `master`, `2.0.x`, `3.0.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
+| 5.5            | ✔   `master`, `2.0.x`, `3.0.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
+| 5.6            | ✔   `master`, `2.0.x`, `3.0.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
+| 7.0            | ✔   `3.0.x`                    | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
 
 
 ## Installation
@@ -58,8 +58,8 @@ Examples:
 # Install latest version from default branch
 vendor/bin/install-phalcon.sh
 
-# Install latest revision from branch "2.1.x"
-vendor/bin/install-phalcon.sh 2.1.x
+# Install latest revision from branch "3.0.x"
+vendor/bin/install-phalcon.sh 3.0.x
 
 # Install specific release tag "phalcon-v2.0.9"
 vendor/bin/install-phalcon.sh phalcon-v2.0.9
@@ -124,7 +124,7 @@ cache:
 
 before_install:
   - composer install --prefer-source --no-interaction
-  - vendor/bin/install-phalcon.sh 2.1.x
+  - vendor/bin/install-phalcon.sh 3.0.x
 
 script:
   - vendor/bin/phpunit
@@ -156,7 +156,7 @@ build:
         override:
             - composer install --prefer-source --no-interaction
         after: 
-            - vendor/bin/install-phalcon.sh 2.1.x
+            - vendor/bin/install-phalcon.sh 3.0.x
 ```
 
 > **Note:** No need to include the `vendor/` cache directory as this is cached automatically.
@@ -195,7 +195,7 @@ build:
 
   ci:
     - composer install --prefer-source --no-interaction
-    - bin/install-phalcon.sh 2.1.x
+    - bin/install-phalcon.sh 3.0.x
 ```
 
 <!-- -->
