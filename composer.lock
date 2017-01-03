@@ -4,27 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "92a998f8b2f160b3013e9430933bb3ca",
-    "content-hash": "2d6c80243d1ae1aeffb5a9cc3ca9fcb1",
+    "hash": "943bbd33fbf48046f4df5b10a297db9f",
+    "content-hash": "933d8418e9b544ce86edf8ca7daecb3a",
     "packages": [
         {
             "name": "phalcon/zephir",
-            "version": "0.9.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/zephir.git",
-                "reference": "5c0fb106a6ed9f66829a80f6e26509be67691299"
+                "reference": "e3a9f4803413e4786deae4094ffb49647549c4f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/zephir/zipball/5c0fb106a6ed9f66829a80f6e26509be67691299",
-                "reference": "5c0fb106a6ed9f66829a80f6e26509be67691299",
+                "url": "https://api.github.com/repos/phalcon/zephir/zipball/e3a9f4803413e4786deae4094ffb49647549c4f3",
+                "reference": "e3a9f4803413e4786deae4094ffb49647549c4f3",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
                 "ext-hash": "*",
                 "ext-json": "*",
+                "ext-xml": "*",
                 "php": ">=5.4"
             },
             "require-dev": {
@@ -32,7 +33,7 @@
                 "ext-pdo": "*",
                 "ext-pdo_sqlite": "*",
                 "phpunit/phpunit": "3.7.*",
-                "squizlabs/php_codesniffer": "~2.3.3"
+                "squizlabs/php_codesniffer": "~2.6"
             },
             "bin": [
                 "bin/zephir"
@@ -54,20 +55,23 @@
             ],
             "authors": [
                 {
-                    "name": "Zephir Team",
-                    "homepage": "http://zephir-lang.com/"
-                },
-                {
                     "name": "Contributors",
                     "homepage": "https://github.com/phalcon/zephir/graphs/contributors"
+                },
+                {
+                    "name": "Zephir Team",
+                    "email": "team@phalconphp.com",
+                    "homepage": "https://zephir-lang.com/"
                 }
             ],
             "description": "Zephir is a compiled high level language aimed to the creation of C-extensions for PHP",
-            "homepage": "http://zephir-lang.com/",
+            "homepage": "https://zephir-lang.com/",
             "keywords": [
-                "extension"
+                "extension",
+                "phalcon",
+                "zephir"
             ],
-            "time": "2016-06-11 20:46:46"
+            "time": "2017-01-03 06:21:56"
         }
     ],
     "packages-dev": [
@@ -134,16 +138,16 @@
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "6150bf2c35d3fc379e50c7602b75caceaa39dbf0"
+                "reference": "3cc8f69b3028d0f96a9078e6295d86e9bf019be5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/6150bf2c35d3fc379e50c7602b75caceaa39dbf0",
-                "reference": "6150bf2c35d3fc379e50c7602b75caceaa39dbf0",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/3cc8f69b3028d0f96a9078e6295d86e9bf019be5",
+                "reference": "3cc8f69b3028d0f96a9078e6295d86e9bf019be5",
                 "shasum": ""
             },
             "require": {
@@ -177,7 +181,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2015-06-21 13:08:43"
+            "time": "2016-10-03 07:40:28"
         },
         {
             "name": "phpunit/php-text-template",
@@ -438,16 +442,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.8",
+            "version": "v2.8.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "dba4bb5846798cd12f32e2d8f3f35d77045773c8"
+                "reference": "befb26a3713c97af90d25dd12e75621ef14d91ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/dba4bb5846798cd12f32e2d8f3f35d77045773c8",
-                "reference": "dba4bb5846798cd12f32e2d8f3f35d77045773c8",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/befb26a3713c97af90d25dd12e75621ef14d91ff",
+                "reference": "befb26a3713c97af90d25dd12e75621ef14d91ff",
                 "shasum": ""
             },
             "require": {
@@ -483,12 +487,14 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 05:29:29"
+            "time": "2016-11-14 16:15:57"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "phalcon/zephir": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
