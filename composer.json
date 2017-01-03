@@ -2,8 +2,8 @@
     "name": "techpivot/phalcon-ci-installer",
     "description": "Composer integration for PHP applications to install the Phalcon framework as an extension in the PHP runtime for various hosted CI services including TravisCI, CircleCI, Scrutinizer, Shippable and Codeship.",
     "license": "MIT",
-    "keywords": [ 
-        "TechPivot", 
+    "keywords": [
+        "TechPivot",
         "Phalcon",
         "PHP",
         "Continuous Integration",
@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": "^5.4|^5.5|^5.6|^7.0",
-        "phalcon/zephir": "~0.9"
+        "phalcon/zephir": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "~3.7"
