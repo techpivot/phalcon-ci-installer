@@ -29,7 +29,7 @@ The following table outlines general compability of Phalcon inside various CI en
 | PHP CI Version | Phalcon Version(s) | CI Environment |
 |:---------------|:-------------------|:---------------|
 | 5.3            | ✖   (Not supported)            | - |
-| 5.4            | ✔   `master`, `2.0.x`, `3.0.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
+| 5.4            | ✖   (Not supported)            | - |
 | 5.5            | ✔   `master`, `2.0.x`, `3.0.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
 | 5.6            | ✔   `master`, `2.0.x`, `3.0.x` | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
 | 7.0            | ✔   `3.0.x`                    | ✔ CircleCI, Travis CI, Scrutinizer, Codeship, Shippable |
@@ -111,7 +111,6 @@ test:
 language: php
 
 php:
-  - 5.4
   - 5.5
   - 5.6
   - 7.0
